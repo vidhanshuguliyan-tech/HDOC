@@ -1,59 +1,26 @@
-//1
-
 #include <stdio.h>
+#include <string.h>
 
-int main()
-{
-    int arr[100], n, x;
-    int ans = -1;
+int main() {
+    char str[100];
+    int length;
 
-    scanf("%d", &n);
+    scanf("%s", str);
 
-    for(int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
+    length = strlen(str);
 
-    scanf("%d", &x);
+    for(int i = 0; i < length; i++) {
 
-    for(int i = 0; i < n; i++)
-    {
-        if(arr[i] >= x)
-        {
-            ans = i;
-            break;
+        for(int j = i; j < length; j++) {
+
+            for(int k = i; k <= j; k++) {
+                printf("%c", str[k]);
+            }
+
+            printf(",");
         }
     }
-
-    printf("%d", ans);
 
     return 0;
 }
 
-//2
-
-#include <stdio.h>
-
-int main()
-{
-    int arr[100], n, x;
-    int ans = -1;
-
-    scanf("%d", &n);
-
-    for(int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
-
-    scanf("%d", &x);
-
-    for(int i = 0; i < n; i++)
-    {
-        if(arr[i] >= x)
-        {
-            ans = i;
-            break;
-        }
-    }
-
-    printf("%d", ans);
-
-    return 0;
-}
