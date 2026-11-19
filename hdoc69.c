@@ -1,80 +1,29 @@
-//1
+
 
 #include <stdio.h>
-#include <string.h>
-
-enum Months
-{
-    JAN, FEB, MAR, APR, MAY, JUN,
-    JUL, AUG, SEP, OCT, NOV, DEC
-};
 
 int main()
 {
-    char month[10];
-    int year;
+    int n, arr[100];
+    int freq[100001] = {0};
 
-    scanf("%9s", month);
+    scanf("%d", &n);
 
-    if(strcmp(month, "FEB") == 0)
+    for(int i = 0; i < n; i++)
     {
-        scanf("%d", &year);
+        scanf("%d", &arr[i]);
 
-        if(year % 400 == 0 ||
-           (year % 4 == 0 && year % 100 != 0))
-            printf("29 days");
-        else
-            printf("28 days");
+        if(arr[i] >= 0 && arr[i] <= 100000)
+        {
+            freq[arr[i]]++;
+
+            if(freq[arr[i]] == 2)
+            {
+                printf("%d", arr[i]);
+                return 0;
+            }
+        }
     }
-    else if(strcmp(month, "APR") == 0 ||
-            strcmp(month, "JUN") == 0 ||
-            strcmp(month, "SEP") == 0 ||
-            strcmp(month, "NOV") == 0)
-    {
-        printf("30 days");
-    }
-    else if(strcmp(month, "JAN") == 0 ||
-            strcmp(month, "MAR") == 0 ||
-            strcmp(month, "MAY") == 0 ||
-            strcmp(month, "JUL") == 0 ||
-            strcmp(month, "AUG") == 0 ||
-            strcmp(month, "OCT") == 0 ||
-            strcmp(month, "DEC") == 0)
-    {
-        printf("31 days");
-    }
-    else
-        printf("Invalid month");
-
-    return 0;
-}
-
-//2
-
-#include <stdio.h>
-#include <string.h>
-
-enum Status
-{
-    SUCCESS,
-    FAILURE,
-    TIMEOUT
-};
-
-int main()
-{
-    char status[20];
-
-    scanf("%19s", status);
-
-    if(strcmp(status, "SUCCESS") == 0)
-        printf("Operation successful");
-    else if(strcmp(status, "FAILURE") == 0)
-        printf("Operation failed");
-    else if(strcmp(status, "TIMEOUT") == 0)
-        printf("Operation timed out");
-    else
-        printf("Invalid status");
 
     return 0;
 }
