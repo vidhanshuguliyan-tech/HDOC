@@ -1,65 +1,33 @@
-//1
 
 #include <stdio.h>
 
 int main()
 {
-    FILE *source, *destination;
-    int ch;
+    char s[1000];
+    int maxLength = 0;
 
-    source = fopen("source.txt", "r");
+    scanf("%999s", s);
 
-    if(source == NULL)
+    for(int i = 0; s[i] != '\0'; i++)
     {
-        printf("Source file not found");
-        return 1;
+        int seen[256] = {0};
+        int length = 0;
+
+        for(int j = i; s[j] != '\0'; j++)
+        {
+            if(seen[(unsigned char)s[j]])
+                break;
+
+            seen[(unsigned char)s[j]] = 1;
+            length++;
+        }
+
+        if(length > maxLength)
+            maxLength = length;
     }
 
-    destination = fopen("destination.txt", "w");
-
-    if(destination == NULL)
-    {
-        fclose(source);
-        printf("Destination file error");
-        return 1;
-    }
-
-    while((ch = fgetc(source)) != EOF)
-    {
-        fputc(ch, destination);
-    }
-
-    fclose(source);
-    fclose(destination);
-
-    printf("File copied successfully to destination.txt");
+    printf("%d", maxLength);
 
     return 0;
 }
-//2
 
-#include <stdio.h>
-
-int main()
-{
-    FILE *fp;
-    char text[200];
-
-    fgets(text, sizeof(text), stdin);
-
-    fp = fopen("data.txt", "a");
-
-    if(fp == NULL)
-    {
-        printf("File opening failed");
-        return 1;
-    }
-
-    fprintf(fp, "%s", text);
-
-    fclose(fp);
-
-    printf("File updated successfully with appended text.");
-
-    return 0;
-}
