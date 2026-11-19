@@ -1,57 +1,31 @@
-//1
 
-#include <stdio.h>
-#include <ctype.h>
-
-int main()
-{
-    char str[500];
-
-    fgets(str, sizeof(str), stdin);
-
-    int newWord = 1;
-
-    for(int i = 0; str[i] != '\0'; i++)
-    {
-        if(str[i] == ' ')
-            newWord = 1;
-        else if(newWord)
-        {
-            str[i] = toupper((unsigned char)str[i]);
-            newWord = 0;
-        }
-    }
-
-    printf("%s", str);
-
-    return 0;
-}
-//2
 
 #include <stdio.h>
 
 int main()
 {
-    FILE *fp;
-    char name[50];
-    int age;
+    int n, arr[100];
+    int currentSum, maxSum;
 
-    scanf("%49s", name);
-    scanf("%d", &age);
+    scanf("%d", &n);
 
-    fp = fopen("info.txt", "w");
+    for(int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
 
-    if(fp == NULL)
+    currentSum = maxSum = arr[0];
+
+    for(int i = 1; i < n; i++)
     {
-        printf("File opening failed");
-        return 1;
+        if(currentSum + arr[i] < arr[i])
+            currentSum = arr[i];
+        else
+            currentSum += arr[i];
+
+        if(currentSum > maxSum)
+            maxSum = currentSum;
     }
 
-    fprintf(fp, "Name: %s\nAge: %d", name, age);
-
-    fclose(fp);
-
-    printf("File created successfully! Data written to info.txt");
+    printf("%d", maxSum);
 
     return 0;
 }
