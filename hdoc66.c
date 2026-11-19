@@ -1,80 +1,36 @@
-//1
 
 #include <stdio.h>
-#include <ctype.h>
 
 int main()
 {
-    FILE *in, *out;
-    int ch;
+    int n, arr[100], target;
+    int found = 0;
 
-    in = fopen("input.txt", "r");
+    scanf("%d", &n);
 
-    if(in == NULL)
+    for(int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    scanf("%d", &target);
+
+    for(int i = 0; i < n; i++)
     {
-        printf("Input file not found");
-        return 1;
-    }
-
-    out = fopen("output.txt", "w");
-
-    if(out == NULL)
-    {
-        fclose(in);
-        printf("Output file error");
-        return 1;
-    }
-
-    while((ch = fgetc(in)) != EOF)
-    {
-        ch = toupper((unsigned char)ch);
-        fputc(ch, out);
-    }
-
-    fclose(in);
-    fclose(out);
-
-    printf("Conversion completed");
-
-    return 0;
-}
-
-//2
-
-#include <stdio.h>
-#include <ctype.h>
-
-int main()
-{
-    FILE *fp;
-    int ch, vowels = 0, consonants = 0;
-
-    fp = fopen("text.txt", "r");
-
-    if(fp == NULL)
-    {
-        printf("File not found");
-        return 1;
-    }
-
-    while((ch = fgetc(fp)) != EOF)
-    {
-        ch = tolower((unsigned char)ch);
-
-        if(ch >= 'a' && ch <= 'z')
+        for(int j = i+1; j < n; j++)
         {
-            if(ch == 'a' || ch == 'e' ||
-               ch == 'i' || ch == 'o' || ch == 'u')
-                vowels++;
-            else
-                consonants++;
+            if(arr[i] + arr[j] == target)
+            {
+                printf("%d %d", i, j);
+                found = 1;
+                break;
+            }
         }
+
+        if(found)
+            break;
     }
 
-    printf("Vowels: %d\n", vowels);
-    printf("Consonants: %d", consonants);
-
-    fclose(fp);
+    if(!found)
+        printf("-1 -1");
 
     return 0;
 }
