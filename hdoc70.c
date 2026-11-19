@@ -1,67 +1,28 @@
-//1
+
 
 #include <stdio.h>
-
-enum Numbers
-{
-    A = 10,
-    B,
-    C
-};
+#include <ctype.h>
 
 int main()
 {
-    printf("A=%d\n", A);
-    printf("B=%d\n", B);
-    printf("C=%d\n", C);
+    char str[500];
 
-    return 0;
-}
-//2
+    fgets(str, sizeof(str), stdin);
 
-#include <stdio.h>
-#include <string.h>
+    int newWord = 1;
 
-enum Operation
-{
-    ADD, SUBTRACT, MULTIPLY
-};
-
-int main()
-{
-    char choice[20];
-    int a, b;
-
-    scanf("%19s %d %d", choice, &a, &b);
-
-    enum Operation op;
-
-    if(strcmp(choice, "ADD") == 0)
-        op = ADD;
-    else if(strcmp(choice, "SUBTRACT") == 0)
-        op = SUBTRACT;
-    else if(strcmp(choice, "MULTIPLY") == 0)
-        op = MULTIPLY;
-    else
+    for(int i = 0; str[i] != '\0'; i++)
     {
-        printf("Invalid operation");
-        return 0;
+        if(str[i] == ' ')
+            newWord = 1;
+        else if(newWord)
+        {
+            str[i] = toupper((unsigned char)str[i]);
+            newWord = 0;
+        }
     }
 
-    switch(op)
-    {
-        case ADD:
-            printf("%d", a+b);
-            break;
-
-        case SUBTRACT:
-            printf("%d", a-b);
-            break;
-
-        case MULTIPLY:
-            printf("%d", a*b);
-            break;
-    }
+    printf("%s", str);
 
     return 0;
 }
