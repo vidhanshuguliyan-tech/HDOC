@@ -1,58 +1,31 @@
-//1
 
 #include <stdio.h>
 
 int main()
 {
-    FILE *fp;
-    char text[200];
+    char s[100], t[100];
+    int freq[26] = {0};
+    int valid = 1;
 
-    fgets(text, sizeof(text), stdin);
+    scanf("%99s", s);
+    scanf("%99s", t);
 
-    fp = fopen("data.txt", "a");
+    for(int i = 0; s[i] != '\0'; i++)
+        freq[s[i] - 'a']++;
 
-    if(fp == NULL)
+    for(int i = 0; t[i] != '\0'; i++)
+        freq[t[i] - 'a']--;
+
+    for(int i = 0; i < 26; i++)
     {
-        printf("File opening failed");
-        return 1;
+        if(freq[i] != 0)
+            valid = 0;
     }
 
-    fprintf(fp, "%s", text);
-
-    fclose(fp);
-
-    printf("File updated successfully with appended text.");
-
-    return 0;
-}
-//2
-
-#include <stdio.h>
-
-int main()
-{
-    FILE *fp;
-    char filename[100];
-    char line[200];
-
-    scanf("%99s", filename);
-
-    fp = fopen(filename, "r");
-
-    if(fp == NULL)
-    {
-        printf("Error: File does not exist!");
-        return 0;
-    }
-
-    printf("File opened successfully.\n");
-
-    while(fgets(line, sizeof(line), fp) != NULL)
-    {
-        printf("%s", line);
-    }
-
-    fclose(fp);
+    if(valid)
+        printf("Anagram");
+    else
+        printf("Not Anagram");
 
     return 0;
 }
