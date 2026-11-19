@@ -1,69 +1,40 @@
-//1
 
 #include <stdio.h>
 
 int main()
 {
     int n, arr[100];
+    int candidate = 0, count = 0;
+    int freq = 0;
 
     scanf("%d", &n);
 
     for(int i = 0; i < n; i++)
         scanf("%d", &arr[i]);
 
+    // Boyer-Moore voting algorithm
     for(int i = 0; i < n; i++)
     {
-        int ans = -1;
+        if(count == 0)
+            candidate = arr[i];
 
-        for(int j = i - 1; j >= 0; j--)
-        {
-            if(arr[j] > arr[i])
-            {
-                ans = arr[j];
-                break;
-            }
-        }
-
-        printf("%d", ans);
-
-        if(i != n - 1)
-            printf(", ");
+        if(arr[i] == candidate)
+            count++;
+        else
+            count--;
     }
 
-    return 0;
-}
-//2
-
-#include <stdio.h>
-
-int main()
-{
-    int n, arr[100], ans[100];
-    int product = 1;
-
-    scanf("%d", &n);
-
-    for(int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
-
-    // Store prefix products
+    // Verify candidate
     for(int i = 0; i < n; i++)
     {
-        ans[i] = product;
-        product *= arr[i];
+        if(arr[i] == candidate)
+            freq++;
     }
 
-    // Multiply by suffix products
-    product = 1;
-
-    for(int i = n - 1; i >= 0; i--)
-    {
-        ans[i] *= product;
-        product *= arr[i];
-    }
-
-    for(int i = 0; i < n; i++)
-        printf("%d ", ans[i]);
+    if(freq > n / 2)
+        printf("%d", candidate);
+    else
+        printf("-1");
 
     return 0;
 }
