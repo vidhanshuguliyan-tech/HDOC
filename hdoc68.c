@@ -1,56 +1,23 @@
-//1
+
 
 #include <stdio.h>
 
-enum Days
-{
-    SUNDAY,
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY
-};
-
 int main()
 {
-    printf("SUNDAY = %d\n", SUNDAY);
-    printf("MONDAY = %d\n", MONDAY);
-    printf("TUESDAY = %d\n", TUESDAY);
-    printf("WEDNESDAY = %d\n", WEDNESDAY);
-    printf("THURSDAY = %d\n", THURSDAY);
-    printf("FRIDAY = %d\n", FRIDAY);
-    printf("SATURDAY = %d\n", SATURDAY);
+    int n, arr[100];
+    int expected, actual = 0;
 
-    return 0;
-}
-//2
+    scanf("%d", &n);
 
-#include <stdio.h>
-#include <string.h>
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &arr[i]);
+        actual += arr[i];
+    }
 
-enum Traffic
-{
-    RED,
-    YELLOW,
-    GREEN
-};
+    expected = n * (n + 1) / 2;
 
-int main()
-{
-    char light[20];
-
-    scanf("%19s", light);
-
-    if(strcmp(light, "RED") == 0)
-        printf("Stop");
-    else if(strcmp(light, "YELLOW") == 0)
-        printf("Wait");
-    else if(strcmp(light, "GREEN") == 0)
-        printf("Go");
-    else
-        printf("Invalid input");
+    printf("%d", expected - actual);
 
     return 0;
 }
