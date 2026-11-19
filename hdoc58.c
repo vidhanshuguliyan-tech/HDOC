@@ -1,67 +1,34 @@
-//1
 
 #include <stdio.h>
 
 int main()
 {
-    int n, k, arr[100], temp;
+    int n, arr[100], ans[100];
+    int product = 1;
 
     scanf("%d", &n);
 
     for(int i = 0; i < n; i++)
         scanf("%d", &arr[i]);
 
-    scanf("%d", &k);
-
-    if(k < 1 || k > n)
-        return 0;
-
-    for(int i = 0; i < n-1; i++)
+    // Store prefix products
+    for(int i = 0; i < n; i++)
     {
-        for(int j = 0; j < n-i-1; j++)
-        {
-            if(arr[j] > arr[j+1])
-            {
-                temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
-            }
-        }
+        ans[i] = product;
+        product *= arr[i];
     }
 
-    printf("%d", arr[k-1]);
+    // Multiply by suffix products
+    product = 1;
 
-    return 0;
-}
-
-#include <stdio.h>
-
-int main()
-{
-    char s[1000];
-    int maxLength = 0;
-
-    scanf("%999s", s);
-
-    for(int i = 0; s[i] != '\0'; i++)
+    for(int i = n - 1; i >= 0; i--)
     {
-        int seen[256] = {0};
-        int length = 0;
-
-        for(int j = i; s[j] != '\0'; j++)
-        {
-            if(seen[(unsigned char)s[j]])
-                break;
-
-            seen[(unsigned char)s[j]] = 1;
-            length++;
-        }
-
-        if(length > maxLength)
-            maxLength = length;
+        ans[i] *= product;
+        product *= arr[i];
     }
 
-    printf("%d", maxLength);
+    for(int i = 0; i < n; i++)
+        printf("%d ", ans[i]);
 
     return 0;
 }
